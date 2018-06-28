@@ -32,9 +32,10 @@ object Address {
   val mongoFormat = Json.format[Address]
 }
 
-class ExampleRepository @Inject()(reactiveMongoComponent: ReactiveMongoComponent)(implicit ec: ExecutionContext) extends ReactiveRepository[Address, BSONObjectID](
-  collectionName = "reports",
-  mongo          = reactiveMongoComponent.mongoConnector.db,
-  domainFormat   = Address.mongoFormat,
-  idFormat       = ReactiveMongoFormats.objectIdFormats
-)
+class ExampleRepository @Inject()(reactiveMongoComponent: ReactiveMongoComponent)(implicit ec: ExecutionContext)
+    extends ReactiveRepository[Address, BSONObjectID](
+      collectionName = "reports",
+      mongo          = reactiveMongoComponent.mongoConnector.db,
+      domainFormat   = Address.mongoFormat,
+      idFormat       = ReactiveMongoFormats.objectIdFormats
+    )

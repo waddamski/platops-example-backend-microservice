@@ -14,34 +14,34 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.example.repositories
-
-import org.scalatest.{Matchers, WordSpec}
-import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
-import play.modules.reactivemongo.ReactiveMongoComponent
-import uk.gov.hmrc.mongo.{MongoConnector, MongoSpecSupport}
-import scala.concurrent.ExecutionContext.Implicits.global
-
-class ExampleRepositorySpec
-    extends WordSpec
-    with Matchers
-    with MongoSpecSupport
-    with ScalaFutures
-    with IntegrationPatience {
-
-  private val reactiveMongoComponent: ReactiveMongoComponent =
-    new ReactiveMongoComponent {
-      override def mongoConnector: MongoConnector = mongoConnectorForTest
-    }
-
-  val repo = new ExampleRepository(reactiveMongoComponent)
-
-  "The example" should {
-    "be able to save an address to mongo and read it back" in {
-      val anAddress = Address("Flat 2", "Some Road", "AAAAAA", "London")
-
-      repo.insert(anAddress).futureValue.ok shouldBe true
-      repo.findAll().futureValue.head       shouldBe anAddress
-    }
-  }
-}
+//package uk.gov.hmrc.example.repositories
+//
+//import org.scalatest.{Matchers, WordSpec}
+//import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+//import play.modules.reactivemongo.ReactiveMongoComponent
+//import uk.gov.hmrc.mongo.{MongoConnector, MongoSpecSupport}
+//import scala.concurrent.ExecutionContext.Implicits.global
+//
+//class ExampleRepositorySpec
+//    extends WordSpec
+//    with Matchers
+//    with MongoSpecSupport
+//    with ScalaFutures
+//    with IntegrationPatience {
+//
+//  private val reactiveMongoComponent: ReactiveMongoComponent =
+//    new ReactiveMongoComponent {
+//      override def mongoConnector: MongoConnector = mongoConnectorForTest
+//    }
+//
+//  val repo = new ExampleRepository(reactiveMongoComponent)
+//
+//  "The example" should {
+//    "be able to save an address to mongo and read it back" in {
+//      val anAddress = Address("Flat 2", "Some Road", "AAAAAA", "London")
+//
+//      repo.insert(anAddress).futureValue.ok shouldBe true
+//      repo.findAll().futureValue.head       shouldBe anAddress
+//    }
+//  }
+//}

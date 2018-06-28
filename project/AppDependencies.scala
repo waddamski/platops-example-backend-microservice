@@ -1,6 +1,5 @@
 import play.core.PlayVersion
 import play.sbt.PlayImport._
-import sbt.Keys.libraryDependencies
 import sbt._
 
 object AppDependencies {
@@ -8,15 +7,14 @@ object AppDependencies {
   val compile = Seq(
 //    "uk.gov.hmrc" %% "play-reactivemongo" % "6.2.0",
     ws,
-    "uk.gov.hmrc" %% "bootstrap-play-25" % "1.6.0"
+    "uk.gov.hmrc" %% "bootstrap-play-26" % "0.6.0"
   )
 
-  def test(scope: String = "test") = Seq(
-    "uk.gov.hmrc"       %% "hmrctest"  % "3.0.0"             % scope,
-    "org.scalatest"     %% "scalatest" % "3.0.4"             % scope,
-    "org.pegdown"       % "pegdown"    % "1.6.0"             % scope,
-    "com.typesafe.play" %% "play-test" % PlayVersion.current % scope
-//    "uk.gov.hmrc"       %% "reactivemongo-test" % "3.1.0",
+  val test = Seq(
+    "org.scalatest"     %% "scalatest" % "3.0.4"             % Test,
+    "org.pegdown"       % "pegdown"    % "1.6.0"             % Test,
+    "com.typesafe.play" %% "play-test" % PlayVersion.current % Test
+//    "uk.gov.hmrc"       %% "reactivemongo-test" % "3.1.0" % Test,
   )
 
 }

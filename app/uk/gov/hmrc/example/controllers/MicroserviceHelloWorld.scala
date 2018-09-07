@@ -21,7 +21,8 @@ import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
 @Singleton()
-class MicroserviceHelloWorld @Inject()(val controllerComponents: ControllerComponents) extends BackendController {
+class MicroserviceHelloWorld @Inject()(cc: ControllerComponents)
+    extends BackendController(cc) {
 
   def hello() = Action { implicit request =>
     Ok("Hello world")

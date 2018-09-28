@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-//package uk.gov.hmrc.example.repositories
-//
-//import play.api.libs.json.Json
-//
-//import javax.inject.Inject
-//import play.modules.reactivemongo.ReactiveMongoComponent
-//import reactivemongo.bson.BSONObjectID
-//import uk.gov.hmrc.mongo.ReactiveRepository
-//import uk.gov.hmrc.mongo.json.ReactiveMongoFormats
-//import scala.concurrent.ExecutionContext
-//
-//case class Address(line1: String, line2: String, postCode: String, town: String)
-//
-//object Address {
-//  val mongoFormat = Json.format[Address]
-//}
-//
-//class ExampleRepository @Inject()(reactiveMongoComponent: ReactiveMongoComponent)(implicit ec: ExecutionContext)
-//    extends ReactiveRepository[Address, BSONObjectID](
-//      collectionName = "reports",
-//      mongo          = reactiveMongoComponent.mongoConnector.db,
-//      domainFormat   = Address.mongoFormat,
-//      idFormat       = ReactiveMongoFormats.objectIdFormats
-//    )
+package uk.gov.hmrc.example.repositories
+
+import javax.inject.Inject
+import play.api.libs.json.{Json, OFormat}
+import play.modules.reactivemongo.ReactiveMongoComponent
+import reactivemongo.bson.BSONObjectID
+import uk.gov.hmrc.mongo.ReactiveRepository
+import uk.gov.hmrc.mongo.json.ReactiveMongoFormats
+
+import scala.concurrent.ExecutionContext
+
+case class Address(line1: String, line2: String, postCode: String, town: String)
+
+object Address {
+  val mongoFormat: OFormat[Address] = Json.format[Address]
+}
+
+class ExampleRepository @Inject()(reactiveMongoComponent: ReactiveMongoComponent)(implicit ec: ExecutionContext)
+    extends ReactiveRepository[Address, BSONObjectID](
+      collectionName = "reports",
+      mongo          = reactiveMongoComponent.mongoConnector.db,
+      domainFormat   = Address.mongoFormat,
+      idFormat       = ReactiveMongoFormats.objectIdFormats
+    )

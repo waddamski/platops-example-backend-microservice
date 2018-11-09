@@ -14,23 +14,26 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.example.controllers
+package uk.gov.hmrc.example.services
 
-import org.scalatest.{Matchers, WordSpec}
-import play.api.http.Status
-import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import javax.inject.Inject
+import org.slf4j.MDC
+import play.api.Logger
 
-class MicroserviceHelloWorldControllerSpec extends WordSpec with Matchers {
+import scala.concurrent.{ExecutionContext, Future}
 
-  val fakeRequest = FakeRequest("GET", "/")
+class HelloWorldService @Inject()(implicit ec: ExecutionContext) {
 
-  "GET /" should {
-    "return 200" in {
-//      val controller = new MicroserviceHelloWorld(stubControllerComponents())
-//      val result     = controller.hello()(fakeRequest)
-//      status(result) shouldBe Status.OK
-    }
+  def helloWorld = Future {
+    MDC.put("konrad", "konrad-value") // only for testing
+    Logger.info("hello world service")
+    "hello-world"
+  }
+
+  def helloWorld2(implicit ec: ExecutionContext) = Future {
+    MDC.put("konrad", "konrad-value") // only for testing
+    Logger.info("hello world service")
+    "hello-world"
   }
 
 }

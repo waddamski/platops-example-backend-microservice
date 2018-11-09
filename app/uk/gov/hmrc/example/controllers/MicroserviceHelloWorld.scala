@@ -18,14 +18,23 @@ package uk.gov.hmrc.example.controllers
 
 import javax.inject.{Inject, Singleton}
 import play.api.mvc._
+import uk.gov.hmrc.example.services.HelloWorldService
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
+import uk.gov.hmrc.play.http.logging.MdcLoggingExecutionContext
+
+import scala.concurrent.ExecutionContext
 
 @Singleton()
-class MicroserviceHelloWorld @Inject()(cc: ControllerComponents)
+class MicroserviceHelloWorld @Inject()(cc: ControllerComponents, helloWorldService: HelloWorldService)(
+  implicit ec: ExecutionContext)
     extends BackendController(cc) {
 
-  def hello() = Action { implicit request =>
-    Ok("Hello world")
+  def hello() = Action.async { implicit request =>
+    helloWorldService.helloWorld.map(Ok(_))
+  }
+
+  def hello2() = Action.async { implicit request =>
+    helloWorldService.helloWorld2(MdcLoggingExecutionContext.fromLoggingDetails).map(Ok(_))
   }
 
 }

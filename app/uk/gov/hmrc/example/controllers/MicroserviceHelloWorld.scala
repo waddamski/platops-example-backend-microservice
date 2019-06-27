@@ -25,7 +25,7 @@ class MicroserviceHelloWorld @Inject()(cc: ControllerComponents)
     extends BackendController(cc) {
 
   def hello() = Action { implicit request =>
-    Ok("Hello world")
+    Ok("Hello world - public zone")
   }
 
 }

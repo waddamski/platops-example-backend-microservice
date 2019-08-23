@@ -17,15 +17,42 @@
 package uk.gov.hmrc.example.controllers
 
 import javax.inject.{Inject, Singleton}
+import org.slf4j.MDC
+import play.api.Logger
 import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
+import scala.concurrent.{ExecutionContext, Future}
+
 @Singleton()
-class MicroserviceHelloWorld @Inject()(cc: ControllerComponents)
+class MicroserviceHelloWorld @Inject()(cc: ControllerComponents, exampleService: ExampleService)
     extends BackendController(cc) {
 
   def hello() = Action { implicit request =>
+    println
+    Logger.warn(
+      s"Inside MicroserviceHelloWorld#hello"
+    )
+
+    // setting MDC
+    MDC.put("newKeyAdded", "konrad")
+    exampleService.testingLogging()
+
+    println
     Ok("Hello world - public zone")
   }
 
+}
+
+class ExampleService @Inject()(implicit ec: ExecutionContext) {
+
+  def testingLogging(): Unit = {
+    println
+    Future {
+      Logger.warn(
+        "Inside ExampleService#testingLogging"
+      )
+    }
+    println
+  }
 }
